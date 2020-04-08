@@ -1,0 +1,62 @@
+cabal-version: 1.12
+
+-- This file has been generated from package.yaml by hpack version 0.31.2.
+--
+-- see: https://github.com/sol/hpack
+--
+-- hash: dfe7222c5dcbef5233f2a90d769d59f7d342e3598da28a173c7c0e5cd09bd3d3
+
+name:           prob-hask-project
+version:        0.1.0.0
+description:    Please see the README on GitHub at <https://github.com/githubuser/prob-hask-project#readme>
+homepage:       https://github.com/githubuser/prob-hask-project#readme
+bug-reports:    https://github.com/githubuser/prob-hask-project/issues
+author:         Author name here
+maintainer:     example@example.com
+copyright:      2020 Author name here
+license:        BSD3
+license-file:   LICENSE
+build-type:     Simple
+extra-source-files:
+    README.md
+    ChangeLog.md
+
+source-repository head
+  type: git
+  location: https://github.com/githubuser/prob-hask-project
+
+library
+  exposed-modules:
+      Lib
+  other-modules:
+      Paths_prob_hask_project
+  hs-source-dirs:
+      src
+  build-depends:
+      base >=4.7 && <5
+  default-language: Haskell2010
+
+executable prob-hask-project-exe
+  main-is: Main.hs
+  other-modules:
+      Paths_prob_hask_project
+  hs-source-dirs:
+      app
+  ghc-options: -threaded -rtsopts -with-rtsopts=-N
+  build-depends:
+      base >=4.7 && <5
+    , prob-hask-project
+  default-language: Haskell2010
+
+test-suite prob-hask-project-test
+  type: exitcode-stdio-1.0
+  main-is: Spec.hs
+  other-modules:
+      Paths_prob_hask_project
+  hs-source-dirs:
+      test
+  ghc-options: -threaded -rtsopts -with-rtsopts=-N
+  build-depends:
+      base >=4.7 && <5
+    , prob-hask-project
+  default-language: Haskell2010
