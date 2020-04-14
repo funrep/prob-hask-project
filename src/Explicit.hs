@@ -3,6 +3,7 @@
 module Explicit where
 
 import System.Random
+import Control.Monad
 
 -- Implementation of the probability distribution monad
 -- using Erwig and Kollmansberger (2006) method. This
@@ -19,7 +20,10 @@ instance Functor Explicit where
     fmap f (Explicit xs) = Explicit [(f x, p) | (x, p) <- xs]
 
 instance Applicative Explicit where
-    a <*> b = undefined
+    f <*> v = do
+        f' <- f
+        v' <- v
+        return $ f' v'
     pure = return
 
 instance Monad Explicit where
@@ -50,7 +54,7 @@ sample g (Explicit xs) = scan r xs
         scan v ((x, p):ps) =
             if v <= p then x else scan (v-p) ps
 
-uniform :: [Integer] -> Explicit Integer
+uniform :: [Int] -> Explicit Int 
 uniform = Explicit . normalize . map (flip (,) 1)
 
 categorical :: [(a, Prob)] -> Explicit a
@@ -58,3 +62,9 @@ categorical = Explicit . normalize
 
 bernoulli :: Prob -> Explicit Bool
 bernoulli p = categorical [(True,p), (False,1-p)]
+
+die :: Int -> Explicit Int
+die 0 = return 0
+die 1 = uniform [1..6]
+die n = liftM2 (+) (die 1) (die (n-1))
+
